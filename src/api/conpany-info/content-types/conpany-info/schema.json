@@ -1,0 +1,44 @@
+{
+  "kind": "singleType",
+  "collectionName": "conpany_infos",
+  "info": {
+    "singularName": "conpany-info",
+    "pluralName": "conpany-infos",
+    "displayName": "ConpanyInfo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "socialLink": {
+      "displayName": "socialLink",
+      "type": "component",
+      "repeatable": true,
+      "component": "config.social-link"
+    },
+    "companyEmail": {
+      "type": "email",
+      "required": true
+    },
+    "companyName": {
+      "type": "string",
+      "required": true
+    },
+    "vat": {
+      "type": "string"
+    },
+    "companeAdress": {
+      "type": "string"
+    }
+  }
+}

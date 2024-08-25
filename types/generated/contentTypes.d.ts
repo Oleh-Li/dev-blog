@@ -788,6 +788,449 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiBlogPageBlogPage extends Schema.SingleType {
+  collectionName: 'blog_pages';
+  info: {
+    singularName: 'blog-page';
+    pluralName: 'blog-pages';
+    displayName: 'BlogPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'Our Blog'>;
+    slug: Attribute.UID<'api::blog-page.blog-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    excludedTags: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToMany',
+      'api::tag.tag'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::blog-page.blog-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiConpanyInfoConpanyInfo extends Schema.SingleType {
+  collectionName: 'conpany_infos';
+  info: {
+    singularName: 'conpany-info';
+    pluralName: 'conpany-infos';
+    displayName: 'ConpanyInfo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    logo: Attribute.Media<'images'>;
+    socialLink: Attribute.Component<'config.social-link', true>;
+    companyEmail: Attribute.Email & Attribute.Required;
+    companyName: Attribute.String & Attribute.Required;
+    vat: Attribute.String;
+    companeAdress: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::conpany-info.conpany-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::conpany-info.conpany-info',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.Blocks;
+    slug: Attribute.UID<'api::course.course', 'title'> & Attribute.Required;
+    images: Attribute.Media<'images' | 'videos', true>;
+    tags: Attribute.Relation<'api::course.course', 'oneToMany', 'api::tag.tag'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCoursesPageCoursesPage extends Schema.SingleType {
+  collectionName: 'courses_pages';
+  info: {
+    singularName: 'courses-page';
+    pluralName: 'courses-pages';
+    displayName: 'CoursesPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'Our Courses'>;
+    slug: Attribute.UID<'api::courses-page.courses-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    excludedCourses: Attribute.Relation<
+      'api::courses-page.courses-page',
+      'oneToMany',
+      'api::course.course'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::courses-page.courses-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::courses-page.courses-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFooterFooter extends Schema.SingleType {
+  collectionName: 'footers';
+  info: {
+    singularName: 'footer';
+    pluralName: 'footers';
+    displayName: 'Footer';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    socialLinks: Attribute.Component<'config.social-link', true>;
+    footerMenu: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'api::menu.menu'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::footer.footer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHeaderHeader extends Schema.SingleType {
+  collectionName: 'headers';
+  info: {
+    singularName: 'header';
+    pluralName: 'headers';
+    displayName: 'Header';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    showLogo: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    menu: Attribute.Relation<
+      'api::header.header',
+      'oneToOne',
+      'api::menu.menu'
+    >;
+    socialLinks: Attribute.Component<'config.social-link', true>;
+    showProfileLink: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::header.header',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::header.header',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHomePageHomePage extends Schema.SingleType {
+  collectionName: 'home_pages';
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'HomePage ';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.DefaultTo<'Home'>;
+    hero: Attribute.Component<'layout.hero'>;
+    servicesPreview: Attribute.Component<'layout.services-preview'>;
+    featuredCourse: Attribute.Component<'layout.featured-course'>;
+    postsSelection: Attribute.Component<'blog.posts-selection'>;
+    dynamicHomeSection: Attribute.DynamicZone<
+      ['layout.newsletter-form', 'layout.mission']
+    >;
+    seo: Attribute.Component<'seo.seo-information'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMenuMenu extends Schema.CollectionType {
+  collectionName: 'menus';
+  info: {
+    singularName: 'menu';
+    pluralName: 'menus';
+    displayName: 'Menu';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    menuItems: Attribute.Component<'layout.link', true>;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::menu.menu', 'name'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPostPost extends Schema.CollectionType {
+  collectionName: 'posts';
+  info: {
+    singularName: 'post';
+    pluralName: 'posts';
+    displayName: 'Post';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.Unique &
+      Attribute.SetMinMaxLength<{
+        minLength: 4;
+        maxLength: 150;
+      }>;
+    content: Attribute.RichText & Attribute.Required;
+    slug: Attribute.UID<'api::post.post', 'title'> & Attribute.Required;
+    cover: Attribute.Media<'images', true>;
+    authors: Attribute.Relation<'api::post.post', 'oneToMany', 'admin::user'>;
+    tags: Attribute.Relation<'api::post.post', 'oneToMany', 'api::tag.tag'>;
+    seo: Attribute.Component<'seo.seo-information'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::post.post', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSeoConfigSeoConfig extends Schema.SingleType {
+  collectionName: 'seo_configs';
+  info: {
+    singularName: 'seo-config';
+    pluralName: 'seo-configs';
+    displayName: 'SeoConfig';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    defaultSeo: Attribute.Component<'seo.seo-information'>;
+    seoImage: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::seo-config.seo-config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::seo-config.seo-config',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Schema.CollectionType {
+  collectionName: 'services';
+  info: {
+    singularName: 'service';
+    pluralName: 'services';
+    displayName: 'Service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    description: Attribute.RichText;
+    slug: Attribute.UID<'api::service.service', 'name'>;
+    cover: Attribute.Media<'images'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::service.service',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStaticPageStaticPage extends Schema.CollectionType {
+  collectionName: 'static_pages';
+  info: {
+    singularName: 'static-page';
+    pluralName: 'static-pages';
+    displayName: 'StaticPage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::static-page.static-page', 'title'> &
+      Attribute.Required;
+    pageInfo: Attribute.Component<'layout.page-info'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::static-page.static-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::static-page.static-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTagTag extends Schema.CollectionType {
+  collectionName: 'tags';
+  info: {
+    singularName: 'tag';
+    pluralName: 'tags';
+    displayName: 'Tag';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::tag.tag', 'name'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tag.tag', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -806,6 +1249,19 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::blog-page.blog-page': ApiBlogPageBlogPage;
+      'api::conpany-info.conpany-info': ApiConpanyInfoConpanyInfo;
+      'api::course.course': ApiCourseCourse;
+      'api::courses-page.courses-page': ApiCoursesPageCoursesPage;
+      'api::footer.footer': ApiFooterFooter;
+      'api::header.header': ApiHeaderHeader;
+      'api::home-page.home-page': ApiHomePageHomePage;
+      'api::menu.menu': ApiMenuMenu;
+      'api::post.post': ApiPostPost;
+      'api::seo-config.seo-config': ApiSeoConfigSeoConfig;
+      'api::service.service': ApiServiceService;
+      'api::static-page.static-page': ApiStaticPageStaticPage;
+      'api::tag.tag': ApiTagTag;
     }
   }
 }
