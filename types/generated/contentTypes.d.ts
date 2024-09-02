@@ -1102,6 +1102,9 @@ export interface ApiPostPost extends Schema.CollectionType {
     authors: Attribute.Relation<'api::post.post', 'oneToMany', 'admin::user'>;
     tags: Attribute.Relation<'api::post.post', 'oneToMany', 'api::tag.tag'>;
     seo: Attribute.Component<'seo.seo-information'>;
+    premium: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
