@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict';
 
 /**
@@ -43,7 +44,6 @@ module.exports = createCoreService('api::post.post', ({ strapi }) => ({
 
     ///for premiun posts
     async findPublic(args) {
-        console.log("Args received:", args)
         const newQuery = {
             ...args,
             filters: {
@@ -57,5 +57,11 @@ module.exports = createCoreService('api::post.post', ({ strapi }) => ({
         )
         return publicPosts
     },
+
+    async findOnePublic(args) {
+        const { id, query } = args
+        const post = await strapi.entityService.findOne("api::post.post", id, this.getFetchParams(query))
+        return post.premium ? null : post
+    }
 
 }));

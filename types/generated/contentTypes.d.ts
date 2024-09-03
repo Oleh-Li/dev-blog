@@ -1104,6 +1104,7 @@ export interface ApiPostPost extends Schema.CollectionType {
     seo: Attribute.Component<'seo.seo-information'>;
     premium: Attribute.Boolean &
       Attribute.Required &
+      Attribute.Private &
       Attribute.DefaultTo<false>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

@@ -46,11 +46,9 @@ module.exports = createCoreController('api::post.post',
         async find(ctx) {
             //if authenticated or explicity asking for public content only
             const isRequestingNonPremium = ctx.query.filters && ctx.query.filters.premium["$eq"] == false
-            console.log("isRequestingNonPremium:", isRequestingNonPremium);
             if (ctx.state.user || isRequestingNonPremium) return await super.find(ctx)
 
             //if not authenticated... that mean public
-            console.log("Fetching public posts...");
             const publicPosts = await strapi
                 .service("api::post.post")
                 .findPublic(ctx.query)
@@ -85,15 +83,26 @@ module.exports = createCoreController('api::post.post',
 
 
         //Example 3: Replace a core action
+        // async findOne(ctx) {
+        //     const { id } = ctx.params
+        //     const { query } = ctx
 
+        //     const entity = await strapi.service('api::post.post').findOne(id, query)
+        //     const sanitaizedEntity = await this.sanitizeOutput(entity, ctx)
+
+        //     return this.transformResponse(sanitaizedEntity)
+        // },
+
+        //logic with premium post for example 3
         async findOne(ctx) {
+            if (ctx.state.user) return super.findOne(ctx)
+            //else
             const { id } = ctx.params
             const { query } = ctx
-
-            const entity = await strapi.service('api::post.post').findOne(id, query)
-            const sanitaizedEntity = await this.sanitizeOutput(entity, ctx)
-
+            const postIfPublic = await strapi.service("api::post.post").findOnePublic({ id, query })
+            const sanitaizedEntity = await this.sanitizeOutput(postIfPublic, ctx)
             return this.transformResponse(sanitaizedEntity)
         },
+
     })
 );
