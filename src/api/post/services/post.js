@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict';
 
 /**
@@ -39,5 +40,28 @@ module.exports = createCoreService('api::post.post', ({ strapi }) => ({
             entityId,
             this.getFetchParams(params)
         );
+    },
+
+    ///for premiun posts
+    async findPublic(args) {
+        const newQuery = {
+            ...args,
+            filters: {
+                ...args.filters,
+                premium: false
+            }
+        }
+        const publicPosts = await strapi.entityService.findMany(
+            "api::post.post",
+            this.getFetchParams(newQuery)
+        )
+        return publicPosts
+    },
+
+    async findOnePublic(args) {
+        const { id, query } = args
+        const post = await strapi.entityService.findOne("api::post.post", id, this.getFetchParams(query))
+        return post.premium ? null : post
     }
+
 }));

@@ -12,21 +12,6 @@ export interface SeoSeoInformation extends Schema.Component {
   };
 }
 
-export interface ConfigSocialLink extends Schema.Component {
-  collectionName: 'components_config_social_links';
-  info: {
-    displayName: 'socialLink';
-    icon: 'arrowRight';
-  };
-  attributes: {
-    socialMedia: Attribute.Enumeration<
-      ['github', 'youtube', 'twitter', 'facebook', 'whatsapp']
-    > &
-      Attribute.Required;
-    link: Attribute.String & Attribute.Required;
-  };
-}
-
 export interface LayoutServicesPreview extends Schema.Component {
   collectionName: 'components_layout_services_previews';
   info: {
@@ -127,6 +112,21 @@ export interface LayoutFeaturedCourse extends Schema.Component {
   };
 }
 
+export interface ConfigSocialLink extends Schema.Component {
+  collectionName: 'components_config_social_links';
+  info: {
+    displayName: 'socialLink';
+    icon: 'arrowRight';
+  };
+  attributes: {
+    socialMedia: Attribute.Enumeration<
+      ['github', 'youtube', 'twitter', 'facebook', 'whatsapp']
+    > &
+      Attribute.Required;
+    link: Attribute.String & Attribute.Required;
+  };
+}
+
 export interface BlogPostsSelection extends Schema.Component {
   collectionName: 'components_blog_posts_selections';
   info: {
@@ -147,7 +147,6 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'seo.seo-information': SeoSeoInformation;
-      'config.social-link': ConfigSocialLink;
       'layout.services-preview': LayoutServicesPreview;
       'layout.page-info': LayoutPageInfo;
       'layout.newsletter-form': LayoutNewsletterForm;
@@ -155,6 +154,7 @@ declare module '@strapi/types' {
       'layout.link': LayoutLink;
       'layout.hero': LayoutHero;
       'layout.featured-course': LayoutFeaturedCourse;
+      'config.social-link': ConfigSocialLink;
       'blog.posts-selection': BlogPostsSelection;
     }
   }
