@@ -104,5 +104,13 @@ module.exports = createCoreController('api::post.post',
             return this.transformResponse(sanitaizedEntity)
         },
 
+
+        //////feature LIKES
+        async likePost(ctx) {
+            const user = ctx.state.user //user trying like post
+            const postId = cts.params.id // the post that's being "liked"
+            const { query } = ctx
+        },
+
     })
 );
