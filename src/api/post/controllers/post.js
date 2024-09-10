@@ -108,8 +108,14 @@ module.exports = createCoreController('api::post.post',
         //////feature LIKES
         async likePost(ctx) {
             const user = ctx.state.user //user trying like post
-            const postId = cts.params.id // the post that's being "liked"
+            const postId = ctx.params.id // the post that's being "liked"
             const { query } = ctx
+            const updatedPost = await strapi.service("api::post.post").likePost({
+                postId, userId: user.id, query
+            })
+
+            const sanitaizedEntity = await this.sanitizeOutput(updatedPost, ctx)
+            return this.transformResponse(sanitaizedEntity)
         },
 
     })
